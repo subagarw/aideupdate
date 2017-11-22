@@ -16,25 +16,25 @@
 	color: #fff;
 }
 .aborted-box{
-	border-left: 8px solid #4C4E4C;
+	border-left: 8px solid #7E39BA;
 }
 .btn-aborted{
-	background-color: #4C4E4C;
-	border-color: grey;
+	background-color: #7E39BA;
+	border-color: #7E39BA;
 	color: #fff;
 }
 .notbuilt-box{
-	border-left: 8px solid #7E39BA;
+	border-left: 8px solid #12ABDB;
 }
 .unstable-box{
-	border-left: 8px solid  #7E39BA;
+	border-left: 8px solid  #4C4E4C;
 }
 .running-box{
-	border-left: 8px solid #7E39BA;
+	border-left: 8px solid #FF6327;
 }
 .btn-running{
-	background-color: #7E39BA;
-	border-color: #7E39BA;
+	background-color: #FF6327;
+	border-color: #FF6327;
 	color: #fff;
 }
 .shadow{
