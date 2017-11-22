@@ -174,7 +174,7 @@ a:active,
 a:focus {
   outline: none;
   text-decoration: none;
-  color: #004d78;
+  color: #006fac;
 }
 /* Page Header */
 .page-header {
@@ -1064,7 +1064,7 @@ a:focus {
 }
 .navbar-nav > .user-menu:hover,.navbar-nav > .user-menu:active,.navbar-nav > .tasks-menu:active,.navbar-nav > .tasks-menu:hover
 {
-  background-color: #004d78;
+  background-color: #006fac;
 }
 .navbar-nav > .user-menu > .dropdown-menu {
   border-top-right-radius: 0;
