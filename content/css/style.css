@@ -1,5 +1,6 @@
 .success-box{
 	border-left: 8px solid #95E616;
+	background-color: #ffffff;
 }
 /* #00a65a */
 .btn-success{
@@ -9,6 +10,7 @@
 }
 .failed-box{
 	border-left: 8px solid #FF304C;
+	background-color: #ffffff;
 }
 .btn-failed{
 	background-color: #FF304C;
@@ -17,6 +19,7 @@
 }
 .aborted-box{
 	border-left: 8px solid #7E39BA;
+	background-color: #ffffff;
 }
 .btn-aborted{
 	background-color: #7E39BA;
@@ -25,12 +28,15 @@
 }
 .notbuilt-box{
 	border-left: 8px solid #12ABDB;
+	background-color: #ffffff;
 }
 .unstable-box{
 	border-left: 8px solid  #4C4E4C;
+	background-color: #ffffff;
 }
 .running-box{
 	border-left: 8px solid #FF6327;
+	background-color: #ffffff;
 }
 .btn-running{
 	background-color: #FF6327;
@@ -116,20 +122,20 @@
 	border-left: 8px solid #4C4E4C;
 }
 .completedTask{
-	border: 1px solid #008d4c;
+	border: 1px solid #95E616;
 	padding: 6px;
-	border-left: 8px solid #008d4c;
+	border-left: 8px solid #95E616;
 }
 .failedTask{
-	border: 1px solid #d73925;
+	border: 1px solid #FF304C;
 	padding: 6px;
-	border-left: 8px solid #d73925;
+	border-left: 8px solid #FF304C;
 	background-color: #FDA398;
 }
 .queuedTask{
-	border: 1px solid #ea8e13;
+	border: 1px solid #FF6327;
 	padding: 6px;
-	border-left: 8px solid #ea8e13;
+	border-left: 8px solid #FF6327;
 	background-color: #f8d19e;
 }
 .stage-marker{
