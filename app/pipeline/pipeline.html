@@ -1,0 +1,361 @@
+      <div class="content-wrapper" ng-if="!pipelineData">
+        <div class="row">
+          <div class="col-md-12" align="center">
+            <i class="fa fa-spinner fa-spin fa-5x"></i>
+          </div>
+        </div>
+      </div>
+      <div class="content-wrapper" ng-if="pipelineData">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            {{pipelineData.name}}
+            <small>Devops Orchestration Engine</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">{{viewId}}</li>
+          </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+          <!-- info for smaller screens -->
+          <div class="row visible-sm visible-xs">
+            <div class="col-sm-12 col-xs-12">
+              <div class="box box-default box-solid collapsed-box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Pipeline Info</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                  </div>
+                </div>
+                <div class="box-body" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-2 col-xs-6">
+                      <p><strong>Triggred By</strong></p>
+                    </div>
+                    <div class="col-md-10 col-xs-6">
+                      <p ng-repeat="triggeredBy in pipelineData.pipelines[0].triggeredBy"><i class="fa fa-user"></i> {{triggeredBy.description}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <p><strong>Code Contributors</strong></p>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="row">
+                        <div class="col-md-2" ng-repeat="contributor in pipelineData.pipelines[0].contributors">
+                          <span><i class="fa fa-user"></i> {{contributor.name}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- info for bigger screens -->        
+          <div class="row hidden-sm hidden-xs">
+            <div class="col-md-2 col-xs-6">
+              <p><strong>Triggred By</strong></p>
+            </div>
+            <div class="col-md-10 col-xs-6">
+              <p ng-repeat="triggeredBy in pipelineData.pipelines[0].triggeredBy"><i class="fa fa-user"></i> {{triggeredBy.description}}</p>
+            </div>
+          </div>
+          <div class="row hidden-sm hidden-xs">
+            <div class="col-md-2">
+              <p><strong>Code Contributors</strong></p>
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-2" ng-repeat="contributor in pipelineData.pipelines[0].contributors">
+                  <span><i class="fa fa-user"></i> {{contributor.name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- CIRCULAR PROGRESS WIDGETS -->
+          <div class="row">
+            <div class="col-md-2">
+              <div ng-show="!isRunning && !isQueued">
+                <a class="btn btn-primary" ng-click="startPipeline(pipelineData.firstJob)"><i class="fa fa-play"> Start</i></a>
+              </div>
+            </div>
+            <!-- FOR SMALLER SCREENS -->
+            <div class="col-sm-6 col-sm-offset-0 col-xs-6 col-xs-offset-3 visible-sm visible-xs" ng-repeat="stage in pipelineData.pipelines[0].stages track by stage.name">
+              <div class="row">
+                <div class="col-md-12" style="cursor: pointer;" ng-click="revealStageSm($index)">
+                  <div class="progress-wrapper">
+                    <div class="circle-progress ng-cloak" ng-style="getStyle()">{{calculatePercentage(stage) | number:1}}%</div>
+                    <div
+                    round-progress
+                    max="100"
+                    current="calculatePercentage(stage)"
+                    color="url(#linearGrad-sm)"
+                    bgcolor="#fff"
+                    radius="100"
+                    stroke="20"
+                    semi="false"
+                    rounded="true"
+                    clockwise="true"
+                    responsive="true"
+                    duration="800"
+                    animation="linearEase"
+                    animation-delay="0">
+                    <svg>
+                      <linearGradient id="linearGrad-sm" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="5%"  stop-color="#2C8F8A"/>
+                        <stop offset="95%" stop-color="#45ccce"/>
+                      </linearGradient>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12" align="center">
+                <small>{{stage.name}}</small>
+              </div>
+            </div>
+          </div>
+          <!-- FOR BIGGER SCREENS -->
+          <div class="col-md-2 hidden-sm hidden-xs" ng-repeat="stage in pipelineData.pipelines[0].stages track by stage.name">
+            <div class="row">
+              <div class="col-md-12" style="cursor: pointer;" ng-click="revealStage($index)">
+                <div class="progress-wrapper">
+                  <div class="circle-progress ng-cloak" ng-style="getStyle()">{{calculatePercentage(stage) | number:1}}%</div>
+                  <div
+                  round-progress
+                  max="100"
+                  current="calculatePercentage(stage)"
+                  color="url(#linearGrad-md)"
+                  bgcolor="#fff"
+                  radius="100"
+                  stroke="20"
+                  semi="false"
+                  rounded="true"
+                  clockwise="true"
+                  responsive="true"
+                  duration="800"
+                  animation="linearEase"
+                  animation-delay="0">
+                  <svg>
+                    <linearGradient id="linearGrad-md" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="5%"  stop-color="#2C8F8A"/>
+                      <stop offset="95%" stop-color="#45ccce"/>
+                    </linearGradient>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" align="center">
+              <small>{{stage.name}}</small>
+              <div class="stage-marker" ng-show="showStage[$index]=='true'">
+                <i class="fa fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISPLAYS TASKS TIMELINE IN BIGGER SCREENS -->
+      <div class="row hidden-sm hidden-xs">
+        <div class="col-md-12">
+          <ul class="timeline">
+            <div ng-repeat="stage in pipelineData.pipelines[0].stages track by stage.name">
+              <li class="time-label" ng-show="showStage[$index]=='true'">
+                <span class="bg-red">
+                  {{stage.name}}
+                </span>
+              </li>
+              <div ng-show="showStage[$index]=='true'">
+                <li ng-repeat="task in stage.tasks track by task.id">
+                  <!-- not running build -->
+                  <i ng-if="task.status.type!='RUNNING'" class="fa {{getTaskCss(task.status.type)}}"></i>
+                  <div ng-if="task.status.type!='RUNNING'" class="timeline-item">
+                    <span class="time"><i class="fa fa-calendar"></i> {{task.status.type=="IDLE"
+                      ? "NA" : getReadableDate(task.status.timestamp)}}</span>
+                      <h3 class="timeline-header"><a ui-sref="job({jobId: task.id})">{{task.name}}</a></h3>
+                      <div class="timeline-body" ng-if="task.status.duration!='-1'">
+                        Build <b>{{task.id}} #{{task.buildId}}</b>. Build ran for <b>{{task.status.duration | timeConverter}}</b> with result <b>{{task.status.type}}</b>.<br>
+                        Culprits for this build : NA
+                      </div>
+                      <div class="timeline-body" ng-if="task.status.duration=='-1'">
+                        No build details for job <b>{{task.id}}</b> are available.<br>
+                        Possible Reasons: One of the upstream jobs might have been CANCLED or FAILED. (or) Job is in IDLE state
+                      </div>
+                      <div class="timeline-footer" ng-if="task.buildId">
+                        <a class="btn btn-primary btn-xs">View build</a>
+                        <a class="btn btn-primary btn-xs" ng-click="showConsole(task.link)">View Console</a>
+                      </div>
+                    </div>
+                    <!-- running build -->
+                    <i ng-if="task.status.type=='RUNNING'" class="fa fa-spinner fa-spin bg-yellow"></i>
+                    <div ng-if="task.status.type=='RUNNING'" class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> Started on {{task.status.type=="IDLE"
+                        ? "NA" : getReadableDate(task.status.timestamp)}}</span>
+                        {{getTaskCss('RUNNING')}}
+                        <h3 class="timeline-header"><a ui-sref="job({jobId: task.id})">{{task.name}}</a></h3>
+                        <div class="timeline-body" ng-if="task.buildId!=1">
+                          <div class="progress progress-sm active">
+                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{task.status.percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{task.status.percentage}}%">
+                              <span class="sr-only">{{task.status.percentage}}% Complete</span>
+                            </div>
+                          </div>
+                          <b>Percentage Completed: {{task.status.percentage}}%</b><br>
+                          Currently running <b>{{task.id}}</b> job with build id <b>#{{task.buildId}}</b>. Build started <b>{{task.status.duration | timeConverter}}</b> ago.
+                        </div>
+                        <div class="timeline-body" ng-if="task.buildId==1">
+                          <div class="progress progress-sm active">
+                            <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                              <span class="sr-only">Unable to predict</span>
+                            </div>
+                          </div>
+                          <b>Cannot calculate percentage completed as it is the first build.</b><br>
+                          Currently running <b>{{task.id}}</b> job with build id <b>#{{task.buildId}}</b>. Build started <b>{{task.status.duration | timeConverter}}</b> ago.
+                        </div>
+                        <div class="timeline-footer">
+                          <a class="btn btn-danger btn-xs" ng-click="stopBuild(task.id,task.buildId)">Stop Build</a>
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                </div>
+                <li>
+                  <i class="fa fa-clock-o bg-gray"></i>
+                </li>
+              </ul> 
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Modal for tasks timeline in smaller screens-->
+      <div class="modal fade" id="taskModal" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-responsive">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+            aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Tasks</h4>
+          </div>
+          <div class="modal-body modal-responsive" style="background-color: #ECF0F5">
+            <div class="col-md-12">
+              <ul class="timeline">
+                <div ng-repeat="stage in pipelineData.pipelines[0].stages track by stage.name">
+                  <li class="time-label" ng-show="showStage[$index]=='true'">
+                    <span class="bg-red">
+                      {{stage.name}}
+                    </span>
+                  </li>
+                  <div ng-show="showStage[$index]=='true'">
+                    <li ng-repeat="task in stage.tasks track by task.id">
+                      <!-- not running build -->
+                      <i ng-if="task.status.type!='RUNNING'" class="fa {{getTaskCss(task.status.type)}}"></i>
+                      <div ng-if="task.status.type!='RUNNING'" class="timeline-item">
+                        <span class="time"><i class="fa fa-calendar"></i> {{task.status.type=="IDLE"
+                          ? "NA" : getReadableDate(task.status.timestamp)}}</span>
+                          <h3 class="timeline-header"><a ui-sref="job({jobId: task.id})">{{task.name}}</a></h3>
+                          <div class="timeline-body" ng-if="task.status.duration!='-1'">
+                            Build <b>{{task.id}} #{{task.buildId}}</b>. Build ran for <b>{{task.status.duration | timeConverter}}</b> with result <b>{{task.status.type}}</b>.<br>
+                            Culprits for this build : NA
+                          </div>
+                          <div class="timeline-body" ng-if="task.status.duration=='-1'">
+                            No build details for job <b>{{task.id}}</b> are available.<br>
+                            Possible Reasons: One of the upstream jobs might have been CANCLED or FAILED.
+                          </div>
+                          <div class="timeline-footer" ng-if="task.buildId">
+                            <a class="btn btn-primary btn-xs">View build</a>
+                            <a class="btn btn-primary btn-xs" ng-click="showConsole(task.link)">View Console</a>
+                          </div>
+                        </div>
+                        <!-- running build -->
+                        <i ng-if="task.status.type=='RUNNING'" class="fa fa-spinner fa-spin bg-yellow"></i>
+                        <div ng-if="task.status.type=='RUNNING'" class="timeline-item">
+                          <span class="time"><i class="fa fa-clock-o"></i> Started on {{task.status.type=="IDLE"
+                            ? "NA" : getReadableDate(task.status.timestamp)}}</span>
+                            {{getTaskCss('RUNNING')}}
+                            <h3 class="timeline-header"><a ui-sref="job({jobId: task.id})">{{task.name}}</a></h3>
+                            <div class="timeline-body" ng-if="task.buildId!=1">
+                              <div class="progress progress-sm active">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{task.status.percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{task.status.percentage}}%">
+                                  <span class="sr-only">{{task.status.percentage}}% Complete</span>
+                                </div>
+                              </div>
+                              <b>Percentage Completed: {{task.status.percentage}}%</b><br>
+                              Currently running <b>{{task.id}}</b> job with build id <b>#{{task.buildId}}</b>. Build started <b>{{task.status.duration | timeConverter}}</b> ago.
+                            </div>
+                            <div class="timeline-body" ng-if="task.buildId==1">
+                              <div class="progress progress-sm active">
+                                <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                  <span class="sr-only">Unable to predict</span>
+                                </div>
+                              </div>
+                              <b>Cannot calculate percentage completed as it is the first build.</b><br>
+                              Currently running <b>{{task.id}}</b> job with build id <b>#{{task.buildId}}</b>. Build started <b>{{task.status.duration | timeConverter}}</b> ago.
+                            </div>
+                            <div class="timeline-footer">
+                              <a class="btn btn-danger btn-xs" ng-click="stopBuild(task.id,task.buildId)">Stop Build</a>
+                            </div>
+                          </div>
+                        </li>
+                      </div>
+                    </div>
+                    <li>
+                      <i class="fa fa-clock-o bg-gray"></i>
+                    </li>
+                  </ul> 
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal for alert-->
+        <div class="modal fade" id="alertModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 400px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"
+              aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Alert</h4>
+            </div>
+            <div class="modal-body" style="overflow: auto; height: 120px;">
+              <p align=center class="{{alertCss}}"><i class="fa {{mood}} fa-3x"></i></p>
+              <p align=center class="{{alertCss}}"><strong>{{alertMessage}}</strong></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for console output-->
+      <div class="modal fade" id="consoleModal" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-responsive">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+            aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Console Output</h4>
+          </div>
+          <div class="modal-body modal-responsive">
+          <!-- <div class="row col-md-12">
+            <p class="pull-right"><a href ng-click="showFullLog()">Show Full Log</a></p>
+          </div> -->
+          <div class="row">
+            <div class="col-md-12" ng-bind-html="consoleOutput"></div>
+          </div>
+        </div>  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

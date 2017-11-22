@@ -1,0 +1,204 @@
+      <div class="content-wrapper" id="homeBody">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Dashboard
+            <small>gives brief information of all jobs</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+          <!-- status widgets 2 -->
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box bg-green">
+                <span class="info-box-icon"><i class="fa fa-check-square-o"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text" data-toggle="tooltip" data-placement="top" title="Success Jobs">Success Jobs</span>
+                  <span class="info-box-number">{{stats.success}}</span>
+                  <div class="progress">
+                    <div class="progress-bar" style="width: {{stats.success/jobs.length*100}}%"></div>
+                  </div>
+                  <span class="progress-description">
+                    {{stats.success/jobs.length*100 | number:2}}% successfull<br>
+                    <a ui-sref="detailView({jobType:'success'})" >More info <i class="fa fa-arrow-circle-right"></i></a>
+                  </span>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box bg-aqua">
+                <span class="info-box-icon"><i class="fa fa-warning"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text" data-toggle="tooltip" data-placement="top" title="Not Yet Started">Not Yet Started</span>
+                  <span class="info-box-number">{{stats.notbuilt}}</span>
+                  <div class="progress">
+                    <div class="progress-bar" style="width: {{stats.notbuilt/jobs.length*100}}%"></div>
+                  </div>
+                  <span class="progress-description">
+                    {{stats.notbuilt/jobs.length*100 | number:2}}% not built<br>
+                    <a ui-sref="detailView({jobType:'notbuilt'})">More info <i class="fa fa-arrow-circle-right"></i></a>
+                  </span>                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box bg-yellow">
+                <span class="info-box-icon"><i class="fa fa-spinner fa-spin"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text" data-toggle="tooltip" data-placement="top" title="Running Jobs">Running Jobs</span>
+                  <span class="info-box-number">{{stats.running}}</span>
+                  <div class="progress">
+                    <div class="progress-bar" style="width: {{stats.running/jobs.length*100}}%"></div>
+                  </div>
+                  <span class="progress-description">
+                    {{stats.running/jobs.length*100 | number:2}}% running<br>
+                    <a ui-sref="detailView({jobType:'running'})">More info <i class="fa fa-arrow-circle-right"></i></a>
+                  </span>                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box bg-red">
+                <span class="info-box-icon"><i class="fa fa-close"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text" data-toggle="tooltip" data-placement="top" title="Failed Jobs">Failed Jobs</span>
+                  <span class="info-box-number">{{stats.failed}}</span>
+                  <div class="progress">
+                    <div class="progress-bar" style="width: {{stats.failed/jobs.length*100}}%"></div>
+                  </div>
+                  <span class="progress-description">
+                    {{stats.failed/jobs.length*100 | number:2}}% failed<br>
+                    <a ui-sref="detailView({jobType:'failed'})">More info <i class="fa fa-arrow-circle-right"></i></a>
+                  </span>                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- job widgets -->          
+          <br><br>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="input-group" style="width: 150px;">
+                <input type="text" name="job_search" class="form-control input-sm pull-right" placeholder="Search jobs" ng-model="searchText">
+                <div class="input-group-btn">
+                  <button class="btn btn-sm btn-default" ng-click="searchText=''"><i class="fa fa-undo"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 pull-right">
+              <div class="form-group" align="right">
+                <input name="view" type="radio" ng-value="true" ng-model="viewType" ng-change="switchView()" id="gridView" value="true"><label for="gridView"><i class="fa fa-th-large fa-fw"></i>Grid View&nbsp;&nbsp;&nbsp;&nbsp;</label><input name="view" type="radio" ng-value="false" ng-model="viewType" ng-change="switchView()" id="listView" value="false"><label for="listView"><i class="fa fa-list fa-fw"></i>List View</label>
+              </div>
+            </div>
+          </div>          
+          <!-- Grid view -->
+          <div class="row" ng-if="isGridView">
+            <div class="col-md-4 col-sm-6" ng-repeat="job in jobs | filter:searchText">
+              <div class="box box-solid shadow {{job.color}}-box">
+                <div class="box-header ellipsis">
+                  <a ui-sref="job({jobId:job.name})" data-toggle="tooltip" data-placement="top" data-container="#homeBody" title="{{job.name}}"><b>{{job.name}}</b></a>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-8 ellipsis">
+                      <p><b>Status</b>: {{job.status}}</p>
+                      <p><b>Last Build</b>: <a href {{job.color=='notbuilt' ? 'a-disabled="true"' : ''}} ng-click="goToBuildDetails(job)">#{{job.lastBuild.number}}</a></p>
+                      <p><a href="" ng-click="buildNow(job.url)"><i class="fa fa-gavel"></i>Build Now</a></p>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-4">
+                      <div align="center">
+                        <p><b>Job Health</b></p>
+                        <!-- knob style -->
+                        <!-- <input type="text" readonly=true class="knob" data-thickness="0.2" data-angleArc="180" data-angleOffset="-90" value="{{job.healthReport[0].score}}" data-width="80" data-height="50" data-fgColor="#F56954"> -->
+                        <div class="progress-wrapper">
+                          <div class="circle-progress ng-cloak" ng-style="getStyle()">{{job.healthReport[0].score==undefined ? 'NA' : job.healthReport[0].score}}</div>
+                          <div
+                          round-progress
+                          max="100"
+                          current="job.healthReport[0].score"
+                          color="url(#linearGrad-md)"
+                          bgcolor="{{job.color=='notbuilt' ? '#fff' : '#eCf0f5'}}"
+                          radius="100"
+                          stroke="16"
+                          semi="true"
+                          rounded="true"
+                          clockwise="true"
+                          responsive="true"
+                          duration="800"
+                          animation="linearEase"
+                          animation-delay="0">
+                          <svg>
+                            <linearGradient id="linearGrad-md" x1="0" x2="0" y1="0" y2="1">
+                              <stop offset="5%"  stop-color="#F56954"/>
+                              <stop offset="95%" stop-color="#F56954"/>
+                            </linearGradient>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>                  
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Table View -->
+        <div class="row" ng-if="!isGridView">
+          <div class="col-lg-12" >
+            <div class="box">
+              <div class="box-body table-responsive no-padding">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Status</th>
+                      <th>Job Name</th>
+                      <th>Last Build</th>
+                      <th>Build Now</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="job in jobs | filter:searchText">
+                      <td><button type="button" class="btn btn-{{job.color}} btn-sm {{job.color=='notbuilt' ? 'disabled' : ''}}" ng-click="goToBuildDetails(job)">{{job.status}}</button></td>
+                      <td><a ui-sref="job({jobId:job.name})">{{job.name}}</a></td>
+                      <td>#{{job.lastBuild.number}}</td>
+                      <td><a href ng-click="buildNow(job.url)"><i class="fa fa-gavel"></i> Build Now</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+
+    <!-- Modal for alert-->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 400px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+          aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Alert</h4>
+        </div>
+        <div class="modal-body" style="overflow: auto; height: 120px;">
+          <p align=center class="{{alertCss}}"><i class="fa {{mood}} fa-3x"></i></p>
+          <p align=center class="{{alertCss}}"><strong>{{alertMessage}}</strong></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

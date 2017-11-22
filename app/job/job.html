@@ -1,0 +1,423 @@
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            {{jobDetails.displayName}}
+            <small>{{jobDetails.description}}</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">{{jobDetails.displayName}}</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <h4>Build Statistics</h4>        
+          <div class="row">
+            <div class="col-md-4">
+              <div class="box box-warning box-solid collapsed-box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Last Build</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                  </div>
+                </div>
+                <div ng-if="!jobDetails.lastBuild" class="box-body" style="display: none;">
+                  No last build available
+                </div>
+                <div class="box-body" ng-if="jobDetails.lastBuild" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-4">
+                      Full Display Name:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastBuild.fullDisplayName}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Caused By:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastBuild.actions[0].causes[0].shortDescription}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Build time:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastBuild.duration}} ms
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Build date:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastBuild.timestamp | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Build result:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastBuild.result}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="box box-success box-solid collapsed-box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Last Successful Build</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                  </div>
+                </div>
+                <div ng-if="!jobDetails.lastSuccessfulBuild" class="box-body" style="display: none;">
+                  No last successful build available
+                </div>
+                <div ng-if="jobDetails.lastSuccessfulBuild" class="box-body" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-4">
+                      Full Display Name:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastSuccessfulBuild.fullDisplayName}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Caused By:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastSuccessfulBuild.actions[0].causes[0].shortDescription}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Build time:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastSuccessfulBuild.duration}} ms
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Build date:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastSuccessfulBuild.timestamp | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Build result:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastSuccessfulBuild.result}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="box box-danger box-solid collapsed-box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Last Failed Build</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                  </div>
+                </div>
+                <div ng-if="!jobDetails.lastUnsuccessfulBuild" class="box-body" style="display: none;">
+                  No failed build available
+                </div>
+                <div class="box-body" ng-if="jobDetails.lastUnsuccessfulBuild" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-4">
+                      Full Display Name:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastUnsuccessfulBuild.fullDisplayName}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Caused By:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastUnsuccessfulBuild.actions[0].causes[0].shortDescription}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Build time:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastUnsuccessfulBuild.duration}} ms
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      Build date:
+                    </div>
+                    <div class="col-md-8">
+                      {{jobDetails.lastUnsuccessfulBuild.timestamp | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <h4>Builds Analysis</h4>
+              <div class="box box-solid">
+                <div class="box-body">
+                  <div ng-if="gData.builds.length!=0" id="donut-chart" style="height: 250px;"></div>
+                  <div ng-if="gData.builds.length==0" id="donut-chart" style="height: 250px;">No Builds Available</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4>Project Relationship</h4>
+                  <div class="box box-solid">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="pull-left" ng-if="jobDetails.upstreamProjects.length==0">
+                            No upstream jobs available
+                          </div>
+                          <div class="pull-left" ng-repeat="upstreamProject in jobDetails.upstreamProjects">
+                            <a ui-sref="job({jobId:upstreamProject.name})">{{upstreamProject.name==undefined ? 'NA' : upstreamProject.name}}</a>
+                          </div>                     
+                        </div>
+                      </div>
+                      <div class="row" style="padding: 10px;">
+                        <div class="col-md-6">
+                          <p class="pull-left"><i class="fa fa-angle-double-up fab-icon bg-purple"></i> Upstream Jobs</p>
+                        </div>
+                        <div class="col-md-6">
+                          <p class="pull-right"><i class="fa fa-angle-double-down fab-icon bg-purple"></i> Downstream Jobs</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="pull-right" ng-if="jobDetails.downstreamProjects.length==0">
+                            No downstream jobs available
+                          </div>
+                          <div class="pull-right" ng-repeat="downstreamProject in jobDetails.downstreamProjects">
+                            <a ui-sref="job({jobId:downstreamProject.name})">{{downstreamProject.name}}</a>
+                          </div>                    
+                        </div>
+                      </div>            
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h4>Ops</h4>
+                  <div class="box box-solid">
+                    <div class="box-body">
+                      <a class="btn btn-app" ng-click="deleteJob()">
+                        <i class="fa fa-trash-o"></i> Delete Job
+                      </a>
+                      <a class="btn btn-app" ng-click="buildNow()">
+                        <i class="fa fa-gavel"></i> Build
+                      </a>
+                      <a class="btn btn-app" data-toggle="modal" data-target="#wsModal">
+                        <i class="fa fa-list-alt"></i> Workspace
+                      </a>
+                      <a download class="btn btn-app" href="{{wsDownloadUrl}}">
+                        <i class="fa fa-cloud-download"></i> Download Workspace
+                      </a>
+                    </div><!-- /.box-body -->
+                  </div>  
+                </div>
+              </div>              
+            </div>
+            <div class="col-md-2 col-sm-12">              
+            </div>
+          </div>
+          <div class="row">        
+            <div class="col-md-12">
+              <h4>Build History {{builds.length==0 ? '(No Build history available)' : '' }}</h4>
+              <ul class="timeline">
+                <div ng-repeat="gbuild in builds track by gbuild.buildDate">
+                  <li class="time-label">
+                    <span class="bg-red">
+                      {{gbuild.buildDate}}
+                    </span>
+                  </li>
+                  <li ng-repeat="build in gbuild.builds | orderBy: '-timestamp' track by build.id">
+                    <!-- not running build -->
+                    <i ng-if="!build.building" class="fa {{build.css}}"></i>
+                    <div ng-if="!build.building" class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> {{build.timestamp | date:'HH:mm:ss'}}</span>
+                      <h3 class="timeline-header"><a href="#">{{build.fullDisplayName}}</a></h3>
+                      <div class="timeline-body">
+                        Build <b>{{build.actions[0].causes[0].shortDescription}}</b>. Estimated duration of build was <b>{{build.estimatedDuration | timeConverter}}</b> but build ran for <b>{{build.duration | timeConverter}}</b> with result <b>{{build.result}}</b>.<br>
+                        Culprits for this build : {{build.culprits.length!=0 ? 'build.culprits' : 'NA'}}
+                      </div>
+                      <div class="timeline-footer">
+                        <a class="btn bg-blue btn-xs" ng-click="showConsole(build.id)"><i class="fa fa-list-alt"></i> Console</a>
+                        <a class="btn bg-red btn-xs" ng-click="deleteBuild(build.id)"> <i class="fa fa-trash"></i> Delete Build</a>
+                        <a class="btn bg-purple btn-xs" ng-click="getScmChanges(build.id)"><i class="fa fa-files-o"></i> SCM</a>
+                        <a class="btn bg-orange btn-xs"><i class="fa fa-newspaper-o"></i> Reports</a>
+                      </div>
+                    </div>
+                    <!-- running build -->
+                    <i ng-if="build.building" class="fa {{build.css}}"></i>
+                    <div ng-if="build.building" class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> {{build.timestamp | date:'HH:mm:ss'}}</span>
+                      <h3 class="timeline-header"><a href="#">{{build.fullDisplayName}}</a></h3>
+                      <div class="timeline-body">
+                        Build <b>{{build.actions[0].causes[0].shortDescription}}</b>. Estimated duration of build is <b>{{build.estimatedDuration | timeConverter}}</b>.
+                      </div>
+                      <div class="timeline-footer">
+                        <a class="btn bg-red btn-xs" ng-click="stopBuild(build.id)"> <i class="fa fa-stop"></i> Stop Build</a>
+                      </div>
+                    </div>
+                  </li>
+                </div>            
+                <li>
+                  <i class="fa fa-clock-o bg-gray"></i>
+                </li>
+              </ul>  
+            </div>
+          </div>
+        </section><!-- /.content -->
+      </div>
+
+
+      <!-- Modal for alert-->
+      <div class="modal fade" id="alertModal" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="width: 400px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+            aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Alert</h4>
+          </div>
+          <div class="modal-body">
+            <p align=center class="{{alertCss}}"><i class="fa {{mood}} fa-3x"></i></p>
+            <p align=center class="{{alertCss}}"><strong>{{alertMessage}}</strong></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for prompt-->
+    <div class="modal fade" id="promptModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 400px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+          aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Prompt</h4>
+        </div>
+        <div class="modal-body">
+          <p align="center" class="{{promptCss}}"><i class="fa {{mood}} fa-3x"></i></p>
+          <p align="center" class="{{promptCss}}"><strong>{{promptMessage}}</strong></p>
+          <p align="center">
+            <button type="button" class="btn btn-primary" ng-click="proceedToDelete()">Yes</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for workspace-->
+  <div class="modal fade" id="wsModal" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width: 800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+        aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Project Workspace</h4>
+      </div>
+      <div class="modal-body modal-responsive"
+      ng-bind-html="fileList"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for console output-->
+<div class="modal fade" id="consoleModal" tabindex="-1" role="dialog"
+aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-responsive">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="myModalLabel">Console Output</h4>
+    </div>
+    <div class="modal-body modal-responsive">
+      <!-- <div class="row col-md-12">
+        <p class="pull-right"><a href ng-click="showFullLog()">Show Full Log</a></p>
+      </div> -->
+      <div class="row">
+        <div class="col-md-12" ng-bind-html="consoleOutput"></div>
+      </div>
+    </div>  
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal for changes-->
+<div class="modal fade" id="changesModal" tabindex="-1" role="dialog"
+aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog" style="width: 800px;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+      aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="myModalLabel">Change Set</h4>
+    </div>
+    <div class="modal-body modal-responsive">
+      <div class="well well-lg">
+        <h3 class="page-header">Current Revision "{{changeSet.revisions == null ? 'NA' : changeSet.revisions[0].revision }}" &nbsp;&nbsp;&nbsp;&nbsp; Type "{{changeSet.kind == null ? 'NA' : changeSet.kind}}"</h3>
+        <div ng-repeat="item in changeSet.items">
+          <h4><strong>Revision {{item.commitId}}</strong></h4>
+          <p><b>Commit By</b> {{item.author.fullName}}</p>
+          <p><b>Commit Date</b> {{item.date}}</p>
+          <p><b>Commit Message</b> {{item.msg}}</p>
+          <div class="col-lg-offset-1" ng-repeat="path in item.paths">
+            <p><b>Operation</b> {{path.editType}}</p>
+            <p><strong>File path</strong> {{path.file}}</p>
+            <hr>
+          </div>
+          <hr>  
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>

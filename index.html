@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AIDE</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">    
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="content/css/AdminLTE.css">
+  <link rel="stylesheet" href="content/css/skin-blue.css">
+  <link rel="stylesheet" href="content/css/style.css">
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+      </head>
+  <!--
+  BODY TAG OPTIONS:
+  =================
+  Apply one or more of the following classes to get the
+  desired effect
+  |---------------------------------------------------------|
+  | SKINS         | skin-blue                               |
+  |               | skin-black                              |
+  |               | skin-purple                             |
+  |               | skin-yellow                             |
+  |               | skin-red                                |
+  |               | skin-green                              |
+  |---------------------------------------------------------|
+  |LAYOUT OPTIONS | fixed                                   |
+  |               | layout-boxed                            |
+  |               | layout-top-nav                          |
+  |               | sidebar-collapse                        |
+  |               | sidebar-mini                            |
+  |---------------------------------------------------------|
+-->
+<body class="hold-transition skin-blue sidebar-mini" ng-app="cicdApp">
+  <div class="wrapper">
+
+    <!-- Main Header -->
+    <div ui-view="navbar"></div>	
+
+    <!-- HTTP INTERCEPTOR -->
+    <div id="loaderDiv" loader>
+      <img src="content/images/ajax_loader.gif" class="ajax-loader"/>
+    </div>
+    
+    <!-- Content Wrapper. Contains page content -->
+    <div ui-view="content" class="ng-cloak"></div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <!-- To the right -->
+      <div class="pull-right hidden-xs">
+        <img src="content/images/logocapg.png" height="30px"/>
+      </div>
+      <!-- Default to the left -->
+      <strong>Copyright &copy; 2017 <a href="http://www.capgemini.com">Capgemini</a>.</strong> All rights reserved.
+    </footer>
+
+  </div><!-- ./wrapper -->
+
+
+  <!-- REQUIRED JS SCRIPTS -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>    
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
+  <script src="plugins/flot/jquery.flot.min.js"></script>
+  <script src="plugins/flot/jquery.flot.resize.min.js"></script>
+  <script src="plugins/flot/jquery.flot.pie.min.js"></script>
+  <script src="plugins/flot/jquery.flot.categories.min.js"></script>
+  <!-- <script src="plugins/knob/jquery.knob.js"></script> -->
+  <!-- CICD App -->
+  <script src="content/js/app.min.js"></script>
+  <script src="app/app.module.js"></script>
+  <script src="app/app.state.js"></script>
+  <script src="app/app.interceptor.js"></script>
+  <script src="app/home/home.state.js"></script>
+  <script src="app/home/home.controller.js"></script>
+  <script src="app/layouts/navbar/navbar.controller.js"></script>
+  <script src="app/sonarqube/sonar.state.js"></script>
+  <script src="app/sonarqube/sonarqube.controller.js"></script>
+  <script src="app/services/app.service.js"></script>
+  <script src="app/analysis/analysis.state.js"></script>
+  <script src="app/analysis/analysis.controller.js"></script>
+  <script src="app/detailView/detailView.state.js"></script>
+  <script src="app/detailView/detailView.controller.js"></script>
+  <script src="app/pipeline/pipeline.state.js"></script>
+  <script src="app/pipeline/pipeline.controller.js"></script>
+  <script src="app/job/job.state.js"></script>
+  <script src="app/job/job.controller.js"></script>
+  <script src="app/filters/relativeDate.filter.js"></script>
+    <!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
+       </body>
+       </html>

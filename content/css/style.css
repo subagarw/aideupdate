@@ -1,0 +1,188 @@
+.success-box{
+	border-left: 8px solid #95E616;
+}
+/* #00a65a */
+.btn-success{
+	background-color: #95E616;
+	border-color: #95E616;
+	color: #fff;
+}
+.failed-box{
+	border-left: 8px solid #FF304C;
+}
+.btn-failed{
+	background-color: #FF304C;
+	border-color: #FF304C;
+	color: #fff;
+}
+.aborted-box{
+	border-left: 8px solid #4C4E4C;
+}
+.btn-aborted{
+	background-color: #4C4E4C;
+	border-color: grey;
+	color: #fff;
+}
+.notbuilt-box{
+	border-left: 8px solid #7E39BA;
+}
+.unstable-box{
+	border-left: 8px solid  #7E39BA;
+}
+.running-box{
+	border-left: 8px solid #7E39BA;
+}
+.btn-running{
+	background-color: #7E39BA;
+	border-color: #7E39BA;
+	color: #fff;
+}
+.shadow{
+	box-shadow: 0 10px 13px -6px rgba(0,0,0,.2),0 20px 31px 3px rgba(0,0,0,.14),0 8px 38px 7px rgba(0,0,0,.12);
+}
+.fab-icon{
+	width: 30px;
+	height: 30px;
+	font-size: 15px;
+	line-height: 30px;
+	color: #666;
+	background: #d2d6de;
+	border-radius: 50%;
+	text-align: center;
+	left: 18px;
+	top: 0;
+}
+.failedAlert{
+	color: #FF304C;
+}
+.successAlert{
+	color: #95E616;
+}
+.pointer{
+	cursor: pointer;
+}
+
+.progress-description a{
+	color: #fff;
+}
+.progress-description a:hover{
+	color: #fff;
+}
+.ellipsis{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: initial;
+}
+/*CSS FOR CIRCLE PROGRESS AR*/
+.progress-wrapper{
+	position: relative;
+	margin:20px auto;
+	font-size: 40px;
+}
+.circle-progress{
+	position: absolute;
+	color: #8aa4af;
+	font-weight: 100;
+	line-height: 1;
+}
+/*END*/
+
+/*SCROLL BAR CSS*/
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+	background-color: darkgrey;
+}
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #656A6D;
+	border-radius: 10px;
+}
+/*END*/
+
+/* PIPELINE CSS */
+.stage{
+	margin-top: 60px;
+}
+.idleTask{
+	border: 1px solid #4C4E4C;
+	padding: 6px;
+	border-left: 8px solid #4C4E4C;
+}
+.completedTask{
+	border: 1px solid #008d4c;
+	padding: 6px;
+	border-left: 8px solid #008d4c;
+}
+.failedTask{
+	border: 1px solid #d73925;
+	padding: 6px;
+	border-left: 8px solid #d73925;
+	background-color: #FDA398;
+}
+.queuedTask{
+	border: 1px solid #ea8e13;
+	padding: 6px;
+	border-left: 8px solid #ea8e13;
+	background-color: #f8d19e;
+}
+.stage-marker{
+	font-size: 30px;
+}
+@media only screen and (max-height: 800px) {
+	.modal-responsive {
+		overflow: auto !important;
+		height: 630px !important;
+	}
+}
+.modal-responsive {
+	overflow: auto;
+	height: 700px;
+}
+
+@media only screen and (max-width: 400px) {
+	.modal-dialog-responsive{
+		width: 350px !important;
+	}
+}
+@media (max-width: 770px) and (min-width: 600px) {
+	.modal-dialog-responsive{
+		width: 580px !important;
+	}
+}
+.modal-dialog-responsive{
+	width: 800px;
+}
+
+.console-output{
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+
+/*HTTP INTERCEPTOR LOADER */
+#loaderDiv {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1100;
+	background-color: white;
+	opacity: .6;
+}
+
+.ajax-loader {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -32px; /* -1 * image width / 2 */
+	margin-top: -32px; /* -1 * image height / 2 */
+	display: block;
+}
+/*END*/

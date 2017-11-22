@@ -1,0 +1,102 @@
+<header class="main-header">
+
+  <!-- Logo -->
+  <a href="http://www.capgemini.com" class="logo">
+    <span class="logo-mini"><img src="content/images/logo.png" width="50px;" /> </span>
+    <span class="logo-lg"><img src="content/images/logo-lg.png" width="200px" height="50px"/> </span>
+  </a>
+
+  <!-- Header Navbar -->
+  <nav class="navbar navbar-static-top" role="navigation">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- Tasks Menu -->
+        <li id="execDropdown" class="dropdown tasks-menu">
+          <a class="dropdown-toggle pointer" data-toggle="dropdown">
+            <i class="fa fa-tasks fa-fw"></i>
+            <span class="label label-danger">2</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="header">You have {{executors.length}} executors</li>
+            <li>
+              <ul class="menu">
+                <li ng-repeat="executor in executors track by executor.id">
+                  <a href="#" title="{{executor.toolTip}}">
+                    <h3>
+                      <strong>Executor {{$index}} </strong>
+                      <small class="pull-right" ng-show="{{executor.status!='-1'}}">{{executor.status}}% Complete</small>
+                      <small class="pull-right" ng-show="{{executor.status=='-1'}}">Executor Idle</small>
+                    </h3>
+                    <div class="progress progress-xs active">
+                      <div class="progress-bar progress-bar-aqua progress-bar-striped" style="width: {{executor.status}}%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                        <span class="sr-only">{{executor.status}}% Complete</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="footer">
+              <a ui-sref="detailView({jobType:'running'})">View all running</a>
+            </li>
+          </ul>
+        </li>
+        <!-- User Account Menu -->
+        <li class="dropdown user user-menu">
+          <a class="dropdown-toggle pointer" data-toggle="dropdown">
+            <img src="content/images/user.jpg" class="user-image" alt="User Image">
+            <span class="hidden-xs">{{loggedInUser}}</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="user-header">
+              <img src="content/images/user.jpg" class="img-circle" alt="User Image">
+              <p>
+                {{loggedInUser}} - Capgemini
+                <small></small>
+              </p>
+            </li>
+            <li class="user-footer">
+              <div class="pull-left">
+                <a href="#" class="btn btn-default btn-flat">Profile</a>
+              </div>
+              <div class="pull-right">
+                <a ng-click="logOut()" class="btn btn-default btn-flat">Sign out</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+
+<aside class="main-sidebar">
+  <section class="sidebar">		
+    <form action="#" method="get" class="sidebar-form">
+      <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Search...">
+        <span class="input-group-btn">
+          <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+        </span>
+      </div>
+    </form>
+    <ul class="sidebar-menu">
+      <li class="header">NAVIGATION</li>
+      <li ui-sref-active="active"><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <li ui-sref-active="active"><a ui-sref="analysis"><i class="fa fa-bar-chart-o fa-fw"></i> <span>Analysis</span></a></li>
+      <li ui-sref-active="active" class="treeview">
+        <a style="cursor: pointer;"><i class="fa fa-random fa-fw"></i> <span>Delivery Pipelines</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul class="treeview-menu">
+          <li ng-repeat="view in views"><a ui-sref="pipeline({viewId: view.name})">{{view.name}}</a></li>
+        </ul>
+      </li>
+      <li ui-sref-active="active"><a ui-sref="sonarqube"><i class="fa fa-cube fa-fw"></i> <span>SonarQube</span></a></li>
+    </ul>
+  </section>
+</aside>
